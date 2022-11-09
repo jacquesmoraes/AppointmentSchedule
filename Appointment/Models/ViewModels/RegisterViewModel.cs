@@ -17,11 +17,13 @@ namespace Appointment.Models.ViewModels
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
+        
         [DataType(DataType.Password)]
         [DisplayName("Confirm Passowrd")]
         [Compare("Password", ErrorMessage = "The passwords don't macth")]
         public string ConfirmPassowrd { get; set; }
 
+        [Required]
         [DisplayName("Role name")]
         public string RoleName { get; set; }
 

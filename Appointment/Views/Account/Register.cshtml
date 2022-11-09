@@ -37,8 +37,8 @@
     <div class="input-group mb-3  ">
         <label class="col-md-2" asp-for="RoleName"></label>
         <div class="col-md-8  ">
-            <select asp-for="RoleName" asp-items="@Appointment.Helper.Utilities.RolesForDropDown()" class="form-control"></select>
-            <span asp-validation-for="RoleName" class="text-danger"></span>
+            <select asp-for="RoleName" asp-items="@Appointment.Utilities.Helper.RolesForDropDown()" class="form-control"></select>
+            <span asp-validation-for="ConfirmPassowrd" class="text-danger"></span>
         </div>
     </div>
     <div class="input-group mb-3">

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace Appointment.Helper
+namespace Appointment.Utilities
 {
-    public static class Utilities
+    public static class Helper
     {
 
         public static string Admin = "Admin";
@@ -13,9 +13,9 @@ namespace Appointment.Helper
         {
             return new List<SelectListItem>
             {
-                new SelectListItem{Value= Utilities.Admin, Text=Utilities.Admin},
-                new SelectListItem{Value= Utilities.Doctor, Text=Utilities.Doctor},
-                new SelectListItem{Value= Utilities.Pacient, Text=Utilities.Pacient},
+                new SelectListItem{Value= Helper.Admin, Text=Helper.Admin},
+                new SelectListItem{Value= Helper.Doctor, Text=Helper.Doctor},
+                new SelectListItem{Value= Helper.Pacient, Text=Helper.Pacient},
             };
         }
 
