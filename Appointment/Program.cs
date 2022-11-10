@@ -1,4 +1,5 @@
 using Appointment.Models;
+using Appointment.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("AppointmentConnection") ?? throw new InvalidOperationException("Connection string 'AppointmentConnection' not found.")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddTransient<IAppointmentService, AppointmentService>();
+
+
+
 var app = builder.Build();
 
 
