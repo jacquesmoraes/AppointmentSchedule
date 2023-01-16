@@ -61,8 +61,8 @@ namespace Appointment.Controllers
             {
                 var user = new ApplicationUser
                 {
-                    UserName = registerViewModel.Email,
-                    Email = registerViewModel.Email,
+                    UserName = registerViewModel.Email.ToLower(),
+                    Email = registerViewModel.Email.ToLower(),
                     Name = registerViewModel.Name
                 };
                 var result = await _userManager.CreateAsync(user, registerViewModel.Password);

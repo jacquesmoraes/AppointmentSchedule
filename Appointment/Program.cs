@@ -12,7 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
     builder.Configuration.GetConnectionString("AppointmentConnection") ?? throw new InvalidOperationException("Connection string 'AppointmentConnection' not found.")));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
-
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();

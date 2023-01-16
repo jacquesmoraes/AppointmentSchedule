@@ -1,4 +1,5 @@
-﻿using Appointment.Models.ViewModels;
+﻿using Appointment.Models;
+using Appointment.Models.ViewModels;
 
 namespace Appointment.Services
 {
@@ -7,5 +8,10 @@ namespace Appointment.Services
 
         public List<DoctorVM> DoctorList();
         public List<PacientVM> PacientList();
+        public Task<int>AddUpdate(ApponitmentViewModel viewModel);
+
+        public List<ApponitmentViewModel> DoctorEventById (string eventId);
+        public List<ApponitmentViewModel> PacientEventById(string PacientId);
+
     }
 }
