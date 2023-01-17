@@ -7,11 +7,11 @@ namespace Appointment.Services
     {
 
         public List<DoctorVM> DoctorList();
-        public List<PacientVM> PacientList();
+        public List<PatientVM> PatientList();
         public Task<int>AddUpdate(ApponitmentViewModel viewModel);
 
-        public List<ApponitmentViewModel> DoctorEventById (string eventId);
-        public List<ApponitmentViewModel> PacientEventById(string PacientId);
+        public List<ApponitmentViewModel> DoctorEventById(string doctorId);
+        public List<ApponitmentViewModel> PatientEventById(string PatientId);
 
     }
 }

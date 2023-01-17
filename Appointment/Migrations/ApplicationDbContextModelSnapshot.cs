@@ -116,7 +116,7 @@ namespace Appointment.Migrations
                     b.Property<bool>("IsDoctorAproved")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PacientId")
+                    b.Property<string>("PatientId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")

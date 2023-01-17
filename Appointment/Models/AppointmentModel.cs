@@ -9,7 +9,7 @@
         public DateTime EndDate { get; set; }
         public int Duration { get; set; }
         public string DoctorId { get; set; }
-        public string PacientId { get; set; }
+        public string PatientId { get; set; }
         public bool IsDoctorAproved { get; set; }
         public string AdminId { get; set; }
 

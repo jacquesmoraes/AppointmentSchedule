@@ -1,6 +1,6 @@
 ﻿namespace Appointment.Models.ViewModels
 {
-    public class PacientVM
+    public class PatientVM
     {
 
         public string Id { get; set; }

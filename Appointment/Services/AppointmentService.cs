@@ -21,8 +21,8 @@ namespace Appointment.Services
 
         public async Task<int> AddUpdate(ApponitmentViewModel viewModel)
         {
-            var startdate = DateTime.Parse(viewModel.StartDate);
-            var enddate = DateTime.Parse(viewModel.StartDate).AddMinutes(Convert.ToDouble(viewModel.Duration));
+            var startdate = DateTime.Parse(viewModel.StartDate,CultureInfo.CreateSpecificCulture("en-EN"));
+            var enddate = DateTime.Parse(viewModel.StartDate, CultureInfo.CreateSpecificCulture("en-EN")).AddMinutes(Convert.ToDouble(viewModel.Duration));
             if(viewModel != null && viewModel.Id>0)
             {
                 return 1;
@@ -37,7 +37,7 @@ namespace Appointment.Services
                     EndDate = enddate,
                     Duration = viewModel.Duration,
                     DoctorId = viewModel.DoctorId,
-                    PacientId = viewModel.PacientId,
+                    PatientId = viewModel.PatientId,
                     IsDoctorAproved = false,
                     AdminId = viewModel.AdminId
                 };
@@ -55,22 +55,22 @@ namespace Appointment.Services
             {
                 Id = c.Id,
                 Description = c.Description,
-                StartDate = c.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                EndDate = c.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
                 IsDoctorAproved=c.IsDoctorAproved
             }).ToList();
         }
 
-        public List<ApponitmentViewModel> PacientEventById(string pacientId)
+        public List<ApponitmentViewModel> PatientEventById(string patientId)
         {
-            return _context.Appointments.Where(x => x.DoctorId == pacientId).ToList().Select(c => new ApponitmentViewModel()
+            return _context.Appointments.Where(x => x.PatientId == patientId).ToList().Select(c => new ApponitmentViewModel()
             {
                 Id = c.Id,
                 Description = c.Description,
-                StartDate = c.StartDate.ToString("dd-MM-yyyy HH:mm:ss"),
-                EndDate = c.EndDate.ToString("dd-MM-yyyy HH:mm:ss"),
+                StartDate = c.StartDate.ToString("yyyy-MM-dd HH:mm:ss"),
+                EndDate = c.EndDate.ToString("yyyy-MM-dd HH:mm:ss"),
                 Title = c.Title,
                 Duration = c.Duration,
                 IsDoctorAproved = c.IsDoctorAproved
@@ -90,17 +90,17 @@ namespace Appointment.Services
             return  doctors;
         }
 
-        public List<PacientVM> PacientList()
+        public List<PatientVM> PatientList()
         {
-            var pacient = (from user in _context.Users
+            var patient = (from user in _context.Users
                            join userRoles in _context.UserRoles on user.Id equals userRoles.UserId
-                           join roles in _context.Roles.Where(x => x.Name == Helper.Pacient) on userRoles.RoleId equals roles.Id
-                           select new PacientVM
+                           join roles in _context.Roles.Where(x => x.Name == Helper.Patient) on userRoles.RoleId equals roles.Id
+                           select new PatientVM
                            {
                                Id = user.Id,
                                Name = user.Name,
                            }).ToList();
-            return pacient;
+            return patient;
         }
     }
 }

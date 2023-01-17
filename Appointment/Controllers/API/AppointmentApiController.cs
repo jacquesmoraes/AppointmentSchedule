@@ -31,21 +31,21 @@ namespace Appointment.Controllers.API
             CommonResponse<int> commonResponse = new CommonResponse<int>();
             try
             {
-                commonResponse.Status = _appointmentService.AddUpdate(data).Result;
-                if(commonResponse.Status == 1)
+                commonResponse.status = _appointmentService.AddUpdate(data).Result;
+                if(commonResponse.status == 1)
                 {
-                    commonResponse.Message = Helper.appointmentUpdated;
+                    commonResponse.message = Helper.appointmentUpdated;
                 }
-                if (commonResponse.Status == 2)
+                if (commonResponse.status == 2)
                 {
-                    commonResponse.Message = Helper.appointmentAdded;
+                    commonResponse.message = Helper.appointmentAdded;
                 }
                 
             }
             catch( Exception e)
             {
-                commonResponse.Message = e.Message;
-                commonResponse.Status = Helper.failureCode;
+                commonResponse.message = e.Message;
+                commonResponse.status = Helper.failureCode;
             }
             return Ok(commonResponse);
         }
@@ -57,27 +57,27 @@ namespace Appointment.Controllers.API
             CommonResponse<List<ApponitmentViewModel>> commonResponse = new CommonResponse<List<ApponitmentViewModel>>();
             try
             {
-                if(_role == Helper.Pacient)
+                if(_role == Helper.Patient)
                 {
-                    commonResponse.DataEnum = _appointmentService.PacientEventById(_logInUserId);
-                    commonResponse.Status = Helper.successCode;
+                    commonResponse.dataenum = _appointmentService.PatientEventById(_logInUserId);
+                    commonResponse.status = Helper.successCode;
                 }
                 else if(_role == Helper.Doctor)
                 {
-                    commonResponse.DataEnum = _appointmentService.DoctorEventById(_logInUserId);
-                    commonResponse.Status = Helper.successCode;
+                    commonResponse.dataenum = _appointmentService.DoctorEventById(_logInUserId);
+                    commonResponse.status = Helper.successCode;
                 }
                 else
                 {
 
-                    commonResponse.DataEnum = _appointmentService.DoctorEventById(doctorId);
-                    commonResponse.Status = Helper.successCode;
+                    commonResponse.dataenum = _appointmentService.DoctorEventById(doctorId);
+                    commonResponse.status = Helper.successCode;
                 }
             }
             catch(Exception e)
             {
-                commonResponse.Message = e.Message;
-                commonResponse.Status = Helper.failureCode;
+                commonResponse.message = e.Message;
+                commonResponse.status = Helper.failureCode;
             }
             return Ok(commonResponse);
 

@@ -5,7 +5,7 @@ $(document).ready(function () {
     $("#appointmentdate").kendoDateTimePicker({
         value: new Date(),
         dateInput: false,
-        format: "dd/MM/yyyy" 
+        format: "MM/dd/yyyy HH:mm:ss" 
     });
 
     InitializeCalendar();
@@ -22,27 +22,27 @@ function InitializeCalendar() {
 
                 initialView: 'dayGridMonth',
                 headerToolbar: {
-                    left: 'prev, next, today',
+                    left: 'prev,next,today',
                     center: 'title',
-                    right: 'dayGridMonth, timeGridWeek, timeGridDay'
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
+                timeZone: 'America/Brasilia',
                 selectable: true,
                 editable: false,
                 select: function (event) {
                     onShowModal(event, null);
                 },
                 eventDisplay: 'block',
-                event: function (fetchInfo, successCallback, failureCallback) {
+                events: function (fetchInfo, successCallback, failureCallback) {
                     $.ajax({
                         url: routeURL + '/api/Appointment/GetCalendarData?doctorId=' + $("#doctorId").val(),
                         type: 'GET',
-                        DataType: 'JSON',
+                        dataType: 'JSON',
                         success: function (response) {
-                            var event = []
-
+                            var events = [];
                             if (response.status === 1) {
-                                $each(response.dataenum, function (i, data) {
-                                    event.push({
+                                $.each(response.dataenum, function (i, data) {
+                                    events.push({
                                         title: data.title,
                                         description: data.description,
                                         start: data.startDate,
@@ -56,7 +56,7 @@ function InitializeCalendar() {
 
                                 })
                             }
-                            successCallback(event);
+                            successCallback(events);
                         },
                         error: function (xhr) {
                             $.notify("Error", "error");
@@ -91,7 +91,7 @@ function onSubmitForm() {
             StartDate: $("#appointmentdate").val(),
             Duration: $("#Duration").val(),
             DoctorId: $("#doctorId").val(),
-            PacientId: $("#PacientId").val(),
+            PatientId: $("#PatientId").val(),
         };
 
         $.ajax({

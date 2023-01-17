@@ -21,7 +21,7 @@ namespace Appointment.Migrations
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Duration = table.Column<int>(type: "int", nullable: false),
                     DoctorId = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PacientId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PatientId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDoctorAproved = table.Column<bool>(type: "bit", nullable: false),
                     AdminId = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },

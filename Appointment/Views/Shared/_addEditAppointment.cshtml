@@ -15,7 +15,7 @@
                         <textarea type="text" class="form-control" id="description"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="title">select pacient</label>
+                        <label for="title">select patient</label>
                         <select id="PatientId" asp-items="@(new SelectList(ViewBag.PatientList,"Id", "Name"))" class="form-control"></select>
                     </div>
                     <div class="mb-3">

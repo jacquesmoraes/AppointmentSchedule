@@ -7,7 +7,7 @@ namespace Appointment.Utilities
 
         public static string Admin = "Admin";
         public static string Doctor = "Doctor";
-        public static string Pacient = "Pacient";
+        public static string Patient = "Patient";
         public static string appointmentAdded = "Appointment added successfully.";
         public static string appointmentUpdated = "Appointment updated successfully.";
         public static string appointmentDeleted = "Appointment deleted successfully.";
@@ -29,7 +29,7 @@ namespace Appointment.Utilities
             {
                 new SelectListItem{Value= Helper.Admin, Text=Helper.Admin},
                 new SelectListItem{Value= Helper.Doctor, Text=Helper.Doctor},
-                new SelectListItem{Value= Helper.Pacient, Text=Helper.Pacient},
+                new SelectListItem{Value= Helper.Patient, Text=Helper.Patient},
             };
         }
         public static List<SelectListItem> GetTimeDropDown()
