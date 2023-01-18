@@ -16,7 +16,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="title">select patient</label>
-                        <select id="PatientId" asp-items="@(new SelectList(ViewBag.PatientList,"Id", "Name"))" class="form-control"></select>
+                        <select id="patientId" asp-items="@(new SelectList(ViewBag.PatientList,"Id", "Name"))" class="form-control"></select>
                     </div>
                     <div class="mb-3">
                         <label for="appointmentdate">Start date time</label>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="title">Duration</label>
-                        <select id="Duration" asp-items="ViewBag.Duration" class="form-control"></select>
+                        <select id="duration" asp-items="ViewBag.Duration" class="form-control"></select>
                     </div>
                     <input type="hidden" id="id" />
                 </div>

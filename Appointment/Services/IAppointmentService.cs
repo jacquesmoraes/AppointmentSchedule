@@ -12,6 +12,7 @@ namespace Appointment.Services
 
         public List<ApponitmentViewModel> DoctorEventById(string doctorId);
         public List<ApponitmentViewModel> PatientEventById(string PatientId);
+        public ApponitmentViewModel GetById(int id);
 
     }
 }
