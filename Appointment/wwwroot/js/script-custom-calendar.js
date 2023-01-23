@@ -11,15 +11,12 @@ $(document).ready(function () {
     InitializeCalendar();
 });
 
+var calendar;
 function InitializeCalendar() {
     try {
-
-        
         var calendarEl = document.getElementById('calendar');
-        if (calendarEl !== null) {
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-
+        if (calendarEl != null) {
+             calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 headerToolbar: {
                     left: 'prev,next,today',
@@ -72,12 +69,12 @@ function InitializeCalendar() {
         }
     }
     catch (e) {
-        alert(e)
+        alert(e);
     }
 }
 
 function onShowModal(obj, isEventDetail) {
-    if (isEventDetail !== null) {
+    if (isEventDetail != null) {
         $("#title").val(obj.title);
         $("#description").val(obj.description);
         $("#appointmentdate").val(obj.startDate);
@@ -87,14 +84,13 @@ function onShowModal(obj, isEventDetail) {
         $("#id").val(obj.id);
 
     }
-       $('#appointmentInput').modal("show");
-    
-
+    $("#appointmentInput").modal("show");
+  
 }
 
 
 function onCloseModal() {
-    $('#appointmentInput').modal("hide");
+    $("#appointmentInput").modal("hide");
 }
 function onSubmitForm() {
     if (checkValidation()) {
@@ -132,19 +128,19 @@ function onSubmitForm() {
 
 function checkValidation() {
     var isValid = true;
-    if ($("#title").val() === undefined || $("#title").val() == "") {
+    if ($("#title").val() === undefined || $("#title").val() === "") {
         isValid = false;
         $("#title").addClass('error');
     }
     else {
-        $("#title").removeClass()
+        $("#title").removeClass('error');
     }
     if ($("#appointmentdate").val() === undefined || $("#appointmentdate").val() == "") {
         isValid = false;
         $("#appointmentdate").addClass('error');
     }
     else {
-        $("#appointmentdate").removeClass()
+        $("#appointmentdate").removeClass('error')
     }
     return isValid;
 }
@@ -165,4 +161,8 @@ function getEventDetailsByEventId(info) {
             $.notify("Error", "error");
         }
     });
+}
+
+function onDoctorChange() {
+    calendar.refetchEvents();
 }
