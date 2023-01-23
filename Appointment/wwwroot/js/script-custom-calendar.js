@@ -82,7 +82,19 @@ function onShowModal(obj, isEventDetail) {
         $("#doctorId").val(obj.doctorId);
         $("#patientId").val(obj.patientId);
         $("#id").val(obj.id);
+        $("#lblPatientName").html(obj.patientName);
+        $("#lblDoctorName").html(obj.doctorName);
+        if(obj.isDoctorAproved){
+            $("#lblStatus").html('Approved');
+        }
+        else{
+            $('#lblStatus').html('Pending');
+        }
 
+    }
+    else{
+        $("#appointmentdate").val(obj.startStr + " " + new moment().format("hh:mm A"));
+        $("#id").val(0);
     }
     $("#appointmentInput").modal("show");
   
@@ -90,6 +102,15 @@ function onShowModal(obj, isEventDetail) {
 
 
 function onCloseModal() {
+    $("#appointmentForm")[0].reset();
+    $("id").val(0);
+    $("#title").val('');
+    $("#description").val('');
+    $("#appointmentdate").val('');
+    $("#duration").val('');
+    $("#patientId").val('');
+    $("#lblPatientName").html('');
+    $('#lblStatus').html('');
     $("#appointmentInput").modal("hide");
 }
 function onSubmitForm() {
@@ -112,6 +133,7 @@ function onSubmitForm() {
             contentType: 'application/json',
             success: function (response) {
                 if (response.status === 1 || response.status === 2) {
+                    calendar.refetchEvents();
                     $.notify(response.message, "success");
                     onCloseModal();
                 }

@@ -3,7 +3,12 @@
         <div class="modal-content">
             <form id="appointmentForm" autocomplete="off" novalidate="novalidate">
                 <div class="modal-header">
-                    <h4 class="modal-title">Add/Edit appointment</h4>
+                   @if(User.IsInRole(Appointment.Utilities.Helper.Admin)){
+                    <h4 class="modal-title" >Add/Edit Appointment </h4>
+                   }
+                   else{
+                     <h4 class="modal-title" >Appointment details</h4>
+                   }
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -14,10 +19,35 @@
                         <label for="description">Description</label>
                         <textarea type="text" class="form-control" id="description"></textarea>
                     </div>
+                     @if(User.IsInRole(Appointment.Utilities.Helper.Admin)){
                     <div class="mb-3">
                         <label for="title">select patient</label>
                         <select id="patientId" asp-items="@(new SelectList(ViewBag.PatientList,"Id", "Name"))" class="form-control"></select>
                     </div>
+                     }
+                     else{
+                         @if(User.IsInRole(Appointment.Utilities.Helper.Doctor)){
+                            <div class="mb-3">
+                               <label for="lblPatientName">Patient</label>
+                             <label  class="form-control"  id="lblPatientName" />
+                             </div>
+                              <div class="mb-3">
+                               <label for="lblStatus">Status</label>
+                             <label  class="form-control" aria-disabled="true" id="lblStatus" />
+                             </div>
+                         }
+
+                         @if(User.IsInRole(Appointment.Utilities.Helper.Patient)){
+                            <div class="mb-3">
+                               <label for="lblDoctorName">doctor name</label>
+                             <label  class="form-control"  id="lblDoctorName" />
+                             </div>
+                              <div class="mb-3">
+                               <label for="lblStatus">Status</label>
+                             <label  class="form-control" id="lblStatus" />
+                             </div>
+                         }
+                     }
                     <div class="mb-3">
                         <label for="appointmentdate">Start date time</label>
                         <input class="form-control" id="appointmentdate" />
@@ -30,7 +60,19 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" onclick="onCloseModal();">Close</button> &nbsp;
-                    <button type="button" id="btnSubmit" class="btn btn-success" onclick="onSubmitForm();">Submit</button> &nbsp;
+
+                    @if(User.IsInRole(Appointment.Utilities.Helper.Admin)){
+                        <button type="button" id="btnSubmit" class="btn btn-success" onclick="onSubmitForm();">Submit</button> 
+                        <button type="button" id="btnDelete" class="btn btn-danger"  onclick="onDeleteAppointment();">Delete</button> 
+                    }
+                       @if(User.IsInRole(Appointment.Utilities.Helper.Doctor)){
+                        <button type="button" id="btnConfirm" class="btn btn-success" onclick="onConfirm());">Confirm appointment</button> 
+                        <button type="button" id="btnDelete" class="btn btn-danger" onclick="onDeleteAppointment();">Delete</button> 
+                    }
+                
+                
+                    
+                   
                    
 
 
