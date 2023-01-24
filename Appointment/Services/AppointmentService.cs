@@ -99,7 +99,7 @@ namespace Appointment.Services
                            {
                                Id = user.Id,
                                Name = user.Name,
-                           }).ToList();
+                           }).OrderBy(x => x.Name).ToList();
             return patient;
         }
 

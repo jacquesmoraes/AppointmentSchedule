@@ -13,6 +13,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient<IAppointmentService, AppointmentService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(otpions => {
+    otpions.IdleTimeout = TimeSpan.FromDays(10);
+    otpions.Cookie.HttpOnly = true;
+    otpions.Cookie.IsEssential = true;
+});
 
 
 var app = builder.Build();
@@ -34,7 +40,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession(); 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

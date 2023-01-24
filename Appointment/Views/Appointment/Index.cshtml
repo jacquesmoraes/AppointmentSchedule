@@ -1,4 +1,7 @@
-﻿<div class="row">
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<div class="row">
     <div class="container ">
         @if (User.IsInRole(Appointment.Utilities.Helper.Admin))
         {
@@ -15,4 +18,9 @@
     </div>
 </div>
 <partial name="_AddEditAppointment" >
+
+<div class="pt-2 text-end">
+    <p>@HttpContextAccessor.HttpContext.Session.GetString("ssuserName")'s account is logged in</p>
+
+</div>
 
