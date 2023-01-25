@@ -2,6 +2,14 @@
 @inject IHttpContextAccessor HttpContextAccessor
 
 <div class="row">
+    @if (TempData.ContainsKey("newAdminSignUp")){
+        <div class="container">
+            <div class="alert alert-success ">
+               
+                <strong>Account created for @TempData["newAdminSignUp"].ToString()</strong>
+            </div>
+        </div>
+    }
     <div class="container ">
         @if (User.IsInRole(Appointment.Utilities.Helper.Admin))
         {
