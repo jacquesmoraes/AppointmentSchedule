@@ -1,9 +1,11 @@
 ﻿using Appointment.Services;
 using Appointment.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Appointment.Controllers
 {
+    [Authorize]
     public class AppointmentController : Controller
     {
         private readonly IAppointmentService _appointmentService;
@@ -13,6 +15,7 @@ namespace Appointment.Controllers
             _appointmentService = service;
         }
 
+      
         public IActionResult Index()
         {
             ViewBag.DoctorList = _appointmentService.DoctorList();

@@ -7,24 +7,40 @@ using System.Globalization;
 using System.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Numerics;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Appointment.Services
 {
     public class AppointmentService : IAppointmentService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailSender _emailSender;
 
-        public AppointmentService(ApplicationDbContext context)
+        public AppointmentService(ApplicationDbContext context, IEmailSender emailSender)
         {
             _context = context;
+            _emailSender = emailSender;
         }
 
         public async Task<int> AddUpdate(ApponitmentViewModel viewModel)
         {
             var startdate = DateTime.Parse(viewModel.StartDate,CultureInfo.CreateSpecificCulture("en-EN"));
             var enddate = DateTime.Parse(viewModel.StartDate, CultureInfo.CreateSpecificCulture("en-EN")).AddMinutes(Convert.ToDouble(viewModel.Duration));
-            if(viewModel != null && viewModel.Id>0)
+            var patient = _context.Users.FirstOrDefault(x => x.Id == viewModel.PatientId);
+            var doctor = _context.Users.FirstOrDefault(x => x.Id == viewModel.DoctorId);
+            if (viewModel != null && viewModel.Id>0)
             {
+                var appointment = _context.Appointments.FirstOrDefault(x => x.Id == viewModel.Id);
+                appointment.Title = viewModel.Title;
+                appointment.Description = viewModel.Description;
+                appointment.StartDate = startdate;
+                appointment.EndDate = enddate;
+                appointment.Duration = viewModel.Duration;
+                appointment.DoctorId = viewModel.DoctorId;
+                appointment.PatientId = viewModel.PatientId;
+                appointment.IsDoctorAproved = false;
+                appointment.AdminId = viewModel.AdminId;
+                await _context.SaveChangesAsync();
                 return 1;
             }
             else
@@ -41,7 +57,9 @@ namespace Appointment.Services
                     IsDoctorAproved = false,
                     AdminId = viewModel.AdminId
                 };
-               
+                await _emailSender.SendEmailAsync(doctor.Email, "Appointment created", $"Your appointment with {patient.Name} is created and is in pending status" );
+                await _emailSender.SendEmailAsync(patient.Email, "Appointment created", $"Your appointment with {doctor.Name} is created and is in pending status");
+
                 _context.Appointments.Add(appointment);
                 await _context.SaveChangesAsync();
                 return 2;
